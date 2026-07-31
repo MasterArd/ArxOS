@@ -15,20 +15,20 @@ UEFIFLAGS = -drive if=pflash,format=raw,readonly=on,file=/usr/share/qemu/edk2-x8
 
 ASFLAGS = --32
 NASMFLAGS = -f elf32
-CFLAGS = -m32 -c -ffreestanding -O2 -Iinclude
+CFLAGS = -m32 -c -ffreestanding -O2 -fno-stack-protector -Iinclude
 LDFLAGS = -m elf_i386 -T linker.ld
 
 TARGET = Arx.bin
 
 # heap.o not included
-OBJS = boot.o hw_io.o keyboard.o vga.o shell.o gdt.o idt.o interrupts.o kernel.o
+OBJS = heap.o boot.o hw_io.o keyboard.o vga.o shell.o gdt.o idt.o interrupts.o printf.o kernel.o
 
 # Default target
 all: $(TARGET)
 
 #test uefi
 run-uefi:
-# echo you may need to change this command to make it work becuase it uses a file on the disk that is differently placed in different distros.
+# you may need to change this command to make it work becuase it uses a file on the disk that is differently placed in different distros.
 	$(QEMU8664) $(UEFIFLAGS)
 
 # Link the final binary
@@ -62,6 +62,10 @@ keyboard.o: src/keyboard.c include/keyboard.h include/hw_io.h include/vga.h
 # Compile VGA source
 vga.o: src/vga.c include/vga.h
 	$(CC) $(CFLAGS) src/vga.c -o vga.o
+
+# Compile printf library
+printf.o: lib/printf.c include/printf.h include/vga.h
+	$(CC) $(CFLAGS) lib/printf.c -o printf.o
 
 # Compile shell source
 shell.o: src/shell.c include/shell.h include/vga.h include/keyboard.h

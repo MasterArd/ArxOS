@@ -6,6 +6,8 @@
 
 #include "vga.h"
 #include "hw_io.h"
+#include "printf.h"
+#include <stdarg.h>
 #include <stdint.h>
 
 #define WIDTH 80
@@ -114,12 +116,13 @@ void putchar(char c)
     move_cursor();
 }
 
-void print(const char *str)
+int print(const char *format, ...)
 {
-    while (*str) {
-        putchar(*str);
-        str++;
-    }
+    va_list args;
+    va_start(args, format);
+    int result = vprintf(format, args);
+    va_end(args);
+    return result;
 }
 
 void putchar_green(char c)
