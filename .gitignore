@@ -5,3 +5,7 @@
 *.bin
 *.iso
 iso/boot/Arx.bin
+
+
+#tmp
+src/heap.c

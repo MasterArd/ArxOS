@@ -139,7 +139,7 @@ This project is educational. Key concepts:
 
 ## Future Ideas
 
-- [ ] Extended interrupt handling (exceptions, more IRQs)
+- [x] Extended interrupt handling (exceptions, more IRQs)
 - [ ] Memory management (paging, heap)
 - [ ] File system support
 - [ ] Process/task management

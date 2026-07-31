@@ -28,7 +28,7 @@ static void execute_command(const char *cmd)
     }
     else if (strcmp(cmd, "about") == 0)
     {
-        print("ArxOS with Arcxzs Kernel v0.1 - Running in 32-bit Protected Mode.\n");
+        print("ArxOS with Arcxzs Kernel v0.1.1 - Running in 32-bit Protected Mode.\n");
     }
     else if (strcmp(cmd, "ping") == 0)
     {

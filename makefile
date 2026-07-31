@@ -1,4 +1,7 @@
 # Variables
+VERSION = 0.1.1
+KERNELNAME = Arcxzs
+
 AS = as
 NASM = nasm
 CC = gcc
@@ -16,6 +19,8 @@ CFLAGS = -m32 -c -ffreestanding -O2 -Iinclude
 LDFLAGS = -m elf_i386 -T linker.ld
 
 TARGET = Arx.bin
+
+# heap.o not included
 OBJS = boot.o hw_io.o keyboard.o vga.o shell.o gdt.o idt.o interrupts.o kernel.o
 
 # Default target
@@ -61,6 +66,9 @@ vga.o: src/vga.c include/vga.h
 # Compile shell source
 shell.o: src/shell.c include/shell.h include/vga.h include/keyboard.h
 	$(CC) $(CFLAGS) src/shell.c -o shell.o
+
+heap.o: src/heap.c include/vga.h
+	$(CC) $(CFLAGS) src/heap.c -o heap.o
 
 # Compile kernel entry point
 kernel.o: src/kernel.c include/shell.h include/vga.h include/gdt.h include/idt.h
