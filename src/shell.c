@@ -48,6 +48,7 @@ void shell_run(void)
     int buf_idx = 0;
 
     print("Shell started!\n");
+    print_green("[Started login proccess]\n");
     while (1)
     {
         print("Enter password: ");
@@ -78,9 +79,9 @@ void shell_run(void)
         }
 
         
-        if (strcmp(buffer, "ark") == 0)
+        if (strcmp(buffer, "arc") == 0)
         {
-            print("success\n\n");
+            print_green("[Stopping login proccess]\n");
             break;
         }
         else

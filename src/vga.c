@@ -18,6 +18,9 @@ static volatile uint16_t *vga = (uint16_t *)0xB8000;
 static int row = 0;
 static int col = 0;
 static uint8_t color = 0x0F; // cight white text on black background
+static uint8_t green_color = 0x0A;
+// 0x0A is black back green front
+
 
 // --- hardware cursor 
 
@@ -115,6 +118,51 @@ void print(const char *str)
 {
     while (*str) {
         putchar(*str);
+        str++;
+    }
+}
+
+void putchar_green(char c)
+{
+    // Handle Newline
+    if (c == '\n') {
+        row++;
+        col = 0;
+        scroll();
+        move_cursor();
+        return;
+    }
+
+    // Handle Tab
+    if (c == '\t') {
+        col = (col + 4) & ~3; // Align to next 4-space tab stop
+        if (col >= WIDTH) {
+            col = 0;
+            row++;
+            scroll();
+        }
+        move_cursor();
+        return;
+    }
+
+    // Write character and attribute byte to memory
+    uint16_t entry = ((uint16_t)green_color << 8) | (uint8_t)c;
+    vga[row * WIDTH + col] = entry;
+    col++;
+
+    // Wrap to next line if end of row reached
+    if (col >= WIDTH) {
+        col = 0;
+        row++;
+    }
+
+    scroll();
+    move_cursor();
+}
+void print_green(const char *str)
+{
+    while (*str) {
+        putchar_green(*str);
         str++;
     }
 }

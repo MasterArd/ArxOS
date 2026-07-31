@@ -8,6 +8,8 @@ GRUBISOO = ArxOS.iso
 QEMU = qemu-system-i386
 QEMU8664 = qemu-system-x86_64
 
+UEFIFLAGS = -drive if=pflash,format=raw,readonly=on,file=/usr/share/qemu/edk2-x86_64-code.fd -cdrom ArxOS.iso
+
 ASFLAGS = --32
 NASMFLAGS = -f elf32
 CFLAGS = -m32 -c -ffreestanding -O2 -Iinclude
@@ -18,6 +20,11 @@ OBJS = boot.o hw_io.o keyboard.o vga.o shell.o gdt.o idt.o interrupts.o kernel.o
 
 # Default target
 all: $(TARGET)
+
+#test uefi
+run-uefi:
+# echo you may need to change this command to make it work becuase it uses a file on the disk that is differently placed in different distros.
+	$(QEMU8664) $(UEFIFLAGS)
 
 # Link the final binary
 $(TARGET): $(OBJS)
