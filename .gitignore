@@ -4,3 +4,4 @@
 # disk images and binaries
 *.bin
 *.iso
+iso/boot/Arx.bin
