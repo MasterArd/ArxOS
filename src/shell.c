@@ -37,7 +37,7 @@ static void execute_command(const char *cmd)
     }
     else if (strcmp(cmd, "heap-dump") == 0)
     {
-        full();
+        heap_dump();
     }
     else if (cmd[0] != '\0')
     {
