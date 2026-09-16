@@ -12,7 +12,7 @@ struct idt_entry {
     uint16_t base_high;  
 } __attribute__((packed));
 
-// IDT Pointer register
+// IDT pointer register
 struct idt_ptr {
     uint16_t limit;     
     uint32_t base;      

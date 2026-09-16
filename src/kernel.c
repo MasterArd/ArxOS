@@ -4,6 +4,7 @@
 #include "idt.h"
 #include "gdt.h"
 #include "hw_io.h"
+#include "heap.h"
 
 volatile uint32_t timer_ticks = 0;
 void timer_handler(void) {
@@ -12,11 +13,16 @@ void timer_handler(void) {
 }
 
 void kernel_main(void)
-{
-    gdt_init();
-    idt_init();
+{   
     clear_screen();
-    printf("ArxOS kernel loaded.\n");
+    gdt_init();
+    print_green("Starting gdt\n");
+    idt_init();
+    print_green("Starting idt\n");
+    heap_init();
+    print_green("Starting heap\n\n");
+    print_green("ArxOS kernel loaded.\n");
+
     shell_run();
     while (1)
     {

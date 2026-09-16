@@ -21,7 +21,7 @@ LDFLAGS = -m elf_i386 -T linker.ld
 TARGET = Arx.bin
 
 # heap.o not included
-OBJS = heap.o boot.o hw_io.o keyboard.o vga.o shell.o gdt.o idt.o interrupts.o printf.o kernel.o
+OBJS = heap.o boot.o hw_io.o keyboard.o vga.o shell.o gdt.o idt.o interrupts.o kernel.o  printf.o 
 
 # Default target
 all: $(TARGET)

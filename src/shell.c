@@ -1,6 +1,7 @@
 #include "shell.h"
 #include "vga.h"
 #include "keyboard.h"
+#include "heap.h"
 
 static int strcmp(const char *s1, const char *s2)
 {
@@ -34,6 +35,10 @@ static void execute_command(const char *cmd)
     {
         print("pong\n");
     }
+    else if (strcmp(cmd, "heap-dump") == 0)
+    {
+        full();
+    }
     else if (cmd[0] != '\0')
     {
         print("Unknown command: ");
@@ -47,7 +52,7 @@ void shell_run(void)
     char buffer[128];
     int buf_idx = 0;
 
-    print("Shell started!\n");
+    print_green("Shell started!\n");
     print_green("[Started login proccess]\n");
     while (1)
     {
